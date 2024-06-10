@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { TouchableWithoutFeedback, View, TextInput, TouchableOpacity, Text, StyleSheet, Keyboard, Alert } from "react-native";
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Keyboard, ToastAndroid } from "react-native";
 
 export const AddTodo = (props) => {
     const [todo, setTodo] = useState("");
@@ -20,41 +20,40 @@ export const AddTodo = (props) => {
 
     const addTodo = () => {
         if(todo.length === 0) {
-            Alert.alert("Empty todo", "Todo cannot be empty");
+            ToastAndroid.show("Todo cannot be empty", ToastAndroid.SHORT);
         }
         else if(todo.length > 3) {
             props.setTodos((prevTodos) => ([...prevTodos, {todo: todo, todoId: generateTodoId()}]));
             textInputRef.current.clear();
             setTodo("");
+            Keyboard.dismiss();
         }
         else {
-            Alert.alert("Sorry, cannot add this todo", "Todo must be of more than three characters");
+            ToastAndroid.show("Todo should be of more than three characters", ToastAndroid.SHORT);
+
         }
     };
 
     return(
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={styles.addTodo}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(value) => setTodo(value)}
-                    placeholder="Enter Todo Here"
-                    ref={textInputRef}
-                />
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={addTodo}
-                >
-                    <Text style={styles.buttonText}>Add Todo</Text>
-                </TouchableOpacity>
-            </View>
-        </TouchableWithoutFeedback>
+        <View style={styles.addTodo}>
+            <TextInput
+                style={styles.input}
+                onChangeText={(value) => setTodo(value)}
+                placeholder="Enter Todo Here"
+                ref={textInputRef}
+            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={addTodo}
+            >
+                <Text style={styles.buttonText}>Add Todo</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     addTodo: {
-        paddingTop: 80,
         paddingHorizontal: 80
     },
     input: {
