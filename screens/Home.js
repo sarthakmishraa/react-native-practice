@@ -7,25 +7,6 @@ export const Home = ({ navigation }) => {
 
     return(
         <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Counter")}
-            >
-                <Text>Counter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Reviews")}
-            >
-                <Text>Reviews</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Todo")}
-            >
-                <Text>Todo</Text>
-            </TouchableOpacity>
-
             {
             nameEntered? (
                 <Text>Hi {name}</Text>
@@ -68,11 +49,5 @@ const styles = StyleSheet.create({
         padding: 5,
         margin: 10,
         width: 200
-    },
-    button: {
-        marginVertical: 10,
-        backgroundColor: 'orange',
-        borderRadius: 5,
-        padding: 10,
     },
 });  
